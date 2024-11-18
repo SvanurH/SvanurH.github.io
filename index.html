@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon/cat.png">
+  <link rel="icon" href="/img/icon/cat.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -86,11 +86,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 100vh;">
+<div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
+      <strong>我的学习记录</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -186,7 +186,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/bg/index_bg.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -200,10 +200,6 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
@@ -216,7 +212,7 @@
     
       <div class="container nopadding-x-md">
         <div id="board"
-          style="margin-top: 0">
+          >
           
           <div class="container">
             <div class="row">
@@ -227,24 +223,18 @@
   <div class="row mx-auto index-card">
     
     
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/11/18/hello-world/" target="_self">
-          <img src="/img/bg/bg.img" srcset="/img/loading.gif" lazyload alt="Hello World">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
+    <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/11/18/hello-world/" target="_self">
-          Hello World
+        <a href="/2024/11/18/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
+          
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/11/18/hello-world/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/11/18/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
         <div>
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick
+          #靶场 #网络安全 #RCE  根据危险函数定位法，依次搜索函数  经过一番搜索后，发现shell_exec可能具有漏洞   解密工具一开始没有解密出来system下的文件，导致一开始只搜到了restore.php文件里具有shell_exec  restore.php首先定位到危险函数的位置  执行的命令为 $mysqlBin . &quot;mysql -h\&quot;&quot; . $d
         </div>
       </a>
 
@@ -252,8 +242,41 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-11-18 16:08" pubdate>
+            <time datetime="2024-11-18 17:46" pubdate>
               2024-11-18
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/08/15/docker/" target="_self">
+          Docker基本操作
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/08/15/docker/" target="_self">
+        <div>
+          #网络安全  #Linux docker inspect 查看镜像暴露的端口映射的目录  docker pull 拉取镜像docker run运行容器 -d: 后台运行容器并返回容器 ID。 -it: 交互式运行容器，分配一个伪终端。 --name: 给容器指定一个名称。 -p: 端口映射，格式为 host_port:container_port。 -v: 挂载卷，格式为 host_dir:con
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-08-15 00:00" pubdate>
+              2024-08-15
             </time>
           </div>
         
