@@ -1,0 +1,928 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon/cat.png">
+  <link rel="icon" href="/img/icon/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Svanur">
+  <meta name="keywords" content="Svanur">
+  
+    <meta name="description" content="热爱">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Svanur&#39;s Blog">
+<meta property="og:url" content="http://example.com/page/9/index.html">
+<meta property="og:site_name" content="Svanur&#39;s Blog">
+<meta property="og:description" content="热爱">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Svanur">
+<meta property="article:tag" content="Svanur">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Svanur&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>我的学习记录</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/index_bg.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="在坚冰还盖着北海的时候，我看到了怒放的梅花"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/Finecmsxss/" target="_self">
+          Finecmsxss
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/Finecmsxss/" target="_self">
+        <div>
+          #网络安全 #靶场 存储型Xss会员中心  有两个输入框，两个输入框都可以正常输入内容 发现输入的内容会显示到input中的value中     构造payload，进行尝试  发现引号被转义，无法闭合value属性  初步判断此页面没有存储型Xss漏洞  留言页面查看留言页面  发送留言，在burp中查看拦截到的消息  发现留言数据中带着p标签 尝试修改p标签为script或者为img标签 进入
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-13 00:00" pubdate>
+              2024-09-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA/" class="category-chain-item">靶场</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">#网络安全</a>
+            
+              <a href="/tags/%E9%9D%B6%E5%9C%BA/">#靶场</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/CSRF%20%E9%9D%B6%E5%9C%BA/" target="_self">
+          CSRF 靶场
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/CSRF%20%E9%9D%B6%E5%9C%BA/" target="_self">
+        <div>
+          #网络安全 #靶场 后台修改会员密码CSRF漏洞 在此页面点击修改操作 将昵称修改为admin111，并且用burp拦截此次修改请求，生成CSRF poc 12345678910111213141516171819202122232425262728&lt;html&gt;  &lt;!-- CSRF PoC - generated by Burp Suite Professional --&gt
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-13 00:00" pubdate>
+              2024-09-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA/" class="category-chain-item">靶场</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">#网络安全</a>
+            
+              <a href="/tags/%E9%9D%B6%E5%9C%BA/">#靶场</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/RCE%E9%9D%B6%E5%9C%BA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
+          RCE靶场代码审计
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/RCE%E9%9D%B6%E5%9C%BA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
+        <div>
+          #网络安全 #靶场  定位到mobile.php第75行   注意到被删除的目录为ROOT_PATH.M_PATH.&#39;/theme/&#39;.$_CFG[&#39;mobile_theme&#39;].&#39;/images/&#39;.$mobile_logo 其中根据第73行能够发现$mobile_logo是从数据库中config表取出的value值，where条件中name为固定
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-13 00:00" pubdate>
+              2024-09-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA/" class="category-chain-item">靶场</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">#网络安全</a>
+            
+              <a href="/tags/%E9%9D%B6%E5%9C%BA/">#靶场</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/09/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E5%B7%A5%E5%85%B7/Sqlmap/" target="_self">
+          Sqlmap
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/09/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E5%B7%A5%E5%85%B7/Sqlmap/" target="_self">
+        <div>
+          目录结构 data/包含可以搭建的图形化界面模板，shell后门（里边的代码是经过加密的），udf提权功能，数据库注入检测载荷等 doc/是针对不同国家和地区的使用说明 extra/有一些额外功能，运行cmd、shellcode，icmp协议的反弹shell（是的icmp是可以用来反弹shell的，在平时的渗透过程中碰到传统的tcp，udp反弹shell不成功，可以考虑使用icmp协议或者DNS协
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-09 00:00" pubdate>
+              2024-09-09
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/08/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E5%B7%A5%E5%85%B7/%E6%A0%B9%E6%8D%AE%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E8%AF%AD%E6%B3%95%E8%87%AA%E5%8A%A8%E5%8C%96sqlmap%E5%B7%A5%E5%85%B7/" target="_self">
+          根据谷歌搜索语法自动化sqlmap工具
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/08/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E5%B7%A5%E5%85%B7/%E6%A0%B9%E6%8D%AE%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E8%AF%AD%E6%B3%95%E8%87%AA%E5%8A%A8%E5%8C%96sqlmap%E5%B7%A5%E5%85%B7/" target="_self">
+        <div>
+          #python #网络安全   使用python编写，通过yagooglesearch和sqlmapApi  12345requirements.txt- yagooglesearch- requests程序运行时，需要自行启动sqlmapApi
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-08 00:00" pubdate>
+              2024-09-08
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/05/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/DOM%20Xss/" target="_self">
+          DOM Xss
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/05/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/DOM%20Xss/" target="_self">
+        <div>
+          #网络安全  Level 11 发现页面具有四个隐藏input 将这几个参数手动提交上去 level11.php?t_link=a&amp;t_history=b&amp;t_sort=c&amp;t_ref=d  只有t_sort中的value改变了，继续修改参数，尝试闭合  发现引号被转义，无法有效闭合标签  注意到11关相比第10关多了一个name为t_ref的input，推测和refere
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-05 00:00" pubdate>
+              2024-09-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">#网络安全</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/04/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/Xss%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/" target="_self">
+          Xss靶场记录
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/04/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/Xss%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/" target="_self">
+        <div>
+          #靶场 #网络安全  国信安Xss靶场记录反射型输入随机字符串，查看页面显示  注意到页面具有反射点 构造payloada&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;闭合input标签，执行js脚本 DOM型Xss发现查看页面js脚本 12345678910var con = document.getElementById(&#x27;con&#x
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-04 00:00" pubdate>
+              2024-09-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%9D%B6%E5%9C%BA/" class="category-chain-item">靶场</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%9D%B6%E5%9C%BA/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">#网络安全</a>
+            
+              <a href="/tags/%E9%9D%B6%E5%9C%BA/">#靶场</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/02/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/PHP%E5%AD%A6%E4%B9%A0/PDO%E9%A2%84%E5%A4%84%E7%90%86/" target="_self">
+          PDO预处理
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/02/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/PHP%E5%AD%A6%E4%B9%A0/PDO%E9%A2%84%E5%A4%84%E7%90%86/" target="_self">
+        <div>
+          预处理语句在数据库层面的实现涉及到数据库管理系统（DBMS）的内部机制。这些机制确保了SQL语句和数据的分离，从而提高了安全性和性能。以下是预处理语句在底层的一些实现细节：  查询准备（Parsing）： 当应用程序发送一个预处理语句到数据库时，数据库首先解析这个语句。解析过程包括语法检查、语义分析等，以确保SQL语句是合法的。 在解析过程中，数据库会生成一个查询计划，这是执行查询的内部步骤和操作
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-02 00:00" pubdate>
+              2024-09-02
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/02/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/burpsuite%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/CSRF/" target="_self">
+          CSRF
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/02/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/burpsuite%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/CSRF/" target="_self">
+        <div>
+          #网络安全 #靶场 基于DOM的开放重定向12let url = /https?:\/\/.+/.exec(location.hash); if (url) &#123;   location = url[0];&#125;  location.hash: 一般情况下为URL后 &quot;#&quot; 及其后面一部分组成，如http://www.test.com/#/something， 发现
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-02 00:00" pubdate>
+              2024-09-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA/" class="category-chain-item">靶场</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">#网络安全</a>
+            
+              <a href="/tags/%E9%9D%B6%E5%9C%BA/">#靶场</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/02/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/burpsuite%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/X-Forwarded-For/" target="_self">
+          X-Forwarded-For
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/02/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/burpsuite%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/X-Forwarded-For/" target="_self">
+        <div>
+          #网络安全 #靶场 HTTP 协议中的 X-Forwarded-For（XFF）是一个非官方的扩展头，用于标识HTTP请求通过代理服务器连接到Web服务器时客户端的原始IP地址。这个头通常在客户端和服务器之间存在一个或多个代理时使用，它允许服务器识别原始的客户端IP，即使请求经过了多个代理。 以下是关于 X-Forwarded-For 的一些关键点：  用途：在请求经过代理或负载均衡器时，原始的客
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-02 00:00" pubdate>
+              2024-09-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA/" class="category-chain-item">靶场</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">#网络安全</a>
+            
+              <a href="/tags/%E9%9D%B6%E5%9C%BA/">#靶场</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/#board">22</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

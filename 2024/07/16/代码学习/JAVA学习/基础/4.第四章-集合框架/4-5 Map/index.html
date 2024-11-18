@@ -1,0 +1,754 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon/cat.png">
+  <link rel="icon" href="/img/icon/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Svanur">
+  <meta name="keywords" content="Svanur">
+  
+    <meta name="description" content="#JAVA学习 概述 Map集合称为双列结合,格式: &#123;key1&#x3D;value1,key2&#x3D;value2,...&#125;一次需要存一对数据做为一个元素 Map集合的每个元素key&#x3D;value称为一个键值对&#x2F;键值对对象&#x2F;一个Entry对象,Map集合也被叫做&#x3D;&#x3D;键值对集合&#x3D;&#x3D; Map集合的所有键是不允许重复的,但是值可以重复,键">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4-5 Map">
+<meta property="og:url" content="http://example.com/2024/07/16/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/JAVA%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80/4.%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/4-5%20Map/index.html">
+<meta property="og:site_name" content="Svanur&#39;s Blog">
+<meta property="og:description" content="#JAVA学习 概述 Map集合称为双列结合,格式: &#123;key1&#x3D;value1,key2&#x3D;value2,...&#125;一次需要存一对数据做为一个元素 Map集合的每个元素key&#x3D;value称为一个键值对&#x2F;键值对对象&#x2F;一个Entry对象,Map集合也被叫做&#x3D;&#x3D;键值对集合&#x3D;&#x3D; Map集合的所有键是不允许重复的,但是值可以重复,键">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T11:11:19.075Z">
+<meta property="article:author" content="Svanur">
+<meta property="article:tag" content="JAVA学习">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>4-5 Map - Svanur&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>我的学习记录</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/index_bg.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="4-5 Map"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-16 00:00" pubdate>
+          2024年7月16日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">4-5 Map</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>#JAVA学习</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
+<li>Map集合称为双列结合,格式: <code>&#123;key1=value1,key2=value2,...&#125;</code>一次需要存一对数据做为一个元素</li>
+<li>Map集合的每个元素<code>key=value</code>称为一个键值对&#x2F;键值对对象&#x2F;一个Entry对象,Map集合也被叫做&#x3D;&#x3D;键值对集合&#x3D;&#x3D;</li>
+<li>Map集合的所有键是不允许重复的,但是值可以重复,键和值是一一对应的,每一个键只能找到自己对应的值</li>
+</ul>
+<h4 id="Map集合在什么业务场景下使用"><a href="#Map集合在什么业务场景下使用" class="headerlink" title="Map集合在什么业务场景下使用"></a>Map集合在什么业务场景下使用</h4><ul>
+<li>需要存储一一对应的数据时,就可以考虑Map集合</li>
+</ul>
+<h3 id="Map集合体系的特点"><a href="#Map集合体系的特点" class="headerlink" title="Map集合体系的特点"></a>Map集合体系的特点</h3><ul>
+<li>Map系列集合的特点都是由键决定的,值只是一个附属品,值是不做要求的</li>
+<li>HashMap(由键决定特点):无序 不重复 无索引</li>
+<li>LinkedHashMao: 有序 不重复 无索引</li>
+<li>TreeMap: 按照大小默认升序排序 不重复 无索引</li>
+</ul>
+<h3 id="Map放入常用方法"><a href="#Map放入常用方法" class="headerlink" title="Map放入常用方法"></a>Map放入常用方法</h3><table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public V put(K key,V value)</code></td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td><code>public int size()</code></td>
+<td>获取集合的大小</td>
+</tr>
+<tr>
+<td><code>public void clear()</code></td>
+<td>清空集合</td>
+</tr>
+<tr>
+<td><code>public boolean isEmpty()</code></td>
+<td>判断集合是否为空,为空返回true,反之</td>
+</tr>
+<tr>
+<td><code>public V get(Object key)</code></td>
+<td>根据键获取对应值</td>
+</tr>
+<tr>
+<td><code>public V remove(Object key)</code></td>
+<td>根据键删除整个元素</td>
+</tr>
+<tr>
+<td><code>public boolean containsKey(Object key)</code></td>
+<td>判断是否包含某个键</td>
+</tr>
+<tr>
+<td><code>public boolean containsValue(Object Valule)</code></td>
+<td>判断是否包含某个值</td>
+</tr>
+<tr>
+<td><code>public Set&lt;K&gt; ketSet()</code></td>
+<td>获取全部键的集合</td>
+</tr>
+<tr>
+<td><code>public Collection&lt;V&gt; values()</code></td>
+<td>获取Map集合的全部值</td>
+</tr>
+</tbody></table>
+<h3 id="Map遍历方式"><a href="#Map遍历方式" class="headerlink" title="Map遍历方式"></a>Map遍历方式</h3><h4 id="键找值"><a href="#键找值" class="headerlink" title="键找值"></a>键找值</h4><p>先获取Map集合全部的键,再通过遍历键来找值</p>
+<h5 id="需要用到Map的如下方法"><a href="#需要用到Map的如下方法" class="headerlink" title="需要用到Map的如下方法:"></a>需要用到Map的如下方法:</h5><p><code>public Set&lt;K&gt; keySet()  // 获取所有键的集合</code><br><code>public V get(Object key)  // 根据键获取其对应的值</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java">main&#123;<br>	Map&lt;String, Double&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();  <br>	map.put(<span class="hljs-string">&quot;蜘蛛精&quot;</span>, <span class="hljs-number">162.5</span>);  <br>	map.put(<span class="hljs-string">&quot;紫霞&quot;</span>, <span class="hljs-number">165.8</span>);  <br>	map.put(<span class="hljs-string">&quot;至尊宝&quot;</span>, <span class="hljs-number">186.7</span>);  <br>	map.put(<span class="hljs-string">&quot;蝎子精&quot;</span>, <span class="hljs-number">185.2</span>);  <br>	map.put(<span class="hljs-string">&quot;牛魔王&quot;</span>, <span class="hljs-number">193.5</span>);  <br>	System.out.println(map);  <br>	Set&lt;String&gt; keys = map.keySet();  <br>	System.out.println(keys);  <br>	<span class="hljs-keyword">for</span> (String key : keys) &#123;  <br>	    <span class="hljs-type">double</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> map.get(key);  <br>	    System.out.println(value);  <br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="键值对"><a href="#键值对" class="headerlink" title="键值对"></a>键值对</h4><p>把键值对看成一个整体进行遍历</p>
+<p><code>Set &lt;Map.Entry&lt;K,V&gt;&gt; entrySet()</code> 获取所有”键值对”的集合<br>java会将键值对封装成Entry对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">for</span>(Map.Entry&lt;String,Double&gt; entry : entries)&#123;<br>	<span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> entry.getKey();<br>	<span class="hljs-type">double</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> entry.getValue();<br>	System.out.println(key+<span class="hljs-string">&quot;=====&gt;&quot;</span>+value);<br>&#125;<br><br><span class="hljs-comment">// 1. 调用Map集合提供entrySet方法,把Map集合转换成键值对类型的Set集合</span><br>Set&lt;Map.Entry&lt;String,Double&gt;&gt; entries = map.entrySet();<br><span class="hljs-keyword">for</span>(Map.Entry&lt;String,Double&gt; entry:entries)&#123;<br>	<span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> entry.getKey();<br>	<span class="hljs-type">Double</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> entry.getValue();<br>	System.out.println(key+<span class="hljs-string">&quot;-----&gt;&quot;</span>+value);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="Lambd表达式"><a href="#Lambd表达式" class="headerlink" title="Lambd表达式"></a>Lambd表达式</h4><p>JDK1.8开始之后的新技术(非常的简单)</p>
+<ul>
+<li>需要用到Map的如下方法</li>
+</ul>
+<p><code>default void forEach(BiConsumer&lt;? super K,? super V&gt; action)</code> &#x2F;&#x2F; 结合lambda遍历Map集合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">map.forEach((k,v)-&gt;&#123;<br>	System.out.println(k+<span class="hljs-string">&quot;---&gt;&quot;</span>+v);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="Map集合的案例-统计投票人数"><a href="#Map集合的案例-统计投票人数" class="headerlink" title="Map集合的案例-统计投票人数"></a>Map集合的案例-统计投票人数</h3><h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><ul>
+<li>某个班级80名学生,现在需要组织秋游活动,班长提供了四个景点依次是(A,B,C,D),每个学生只能选择一个景点,请统计最终哪个景点想去的人数最多.</li>
+</ul>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><ul>
+<li>将80个学生选择的数据拿到程序中去</li>
+<li>准备一个Map集合用于存储统计的结果,<code>Map&lt;String, Integer&gt;</code>键是景点,值代表投票数量</li>
+<li>遍历80个学生选择的景点,每遍历一个景点,就看Map集合中是否存在该景点,不存在存入”景点&#x3D;1”,存在则其对应值+1</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;  <br>    <span class="hljs-comment">// 1. 把80个学生选择的景点数据拿到程序中来  </span><br>    List&lt;String&gt; data = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();  <br>    String[] selects = &#123;<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-string">&quot;D&quot;</span>&#125;;  <br>    <span class="hljs-type">Random</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Random</span>();  <br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">80</span>; i++) &#123;  <br>        <span class="hljs-comment">// 每次模拟一个学生选择一个景点，存入到集合中去  </span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> r.nextInt(<span class="hljs-number">4</span>);  <br>        data.add(selects[index]);  <br>    &#125;  <br>    System.out.println(data);  <br>    <span class="hljs-comment">// 2. 开始统计每个景点的投票人数  </span><br>    <span class="hljs-comment">// 准备一个Map集合用于统计最终的结果  </span><br>    Map&lt;String, Integer&gt; result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();  <br>    <span class="hljs-comment">// 开始遍历80个景点数据  </span><br>    <span class="hljs-keyword">for</span> (String s : data) &#123;  <br>        <span class="hljs-comment">// 问问Map集合中是否存在该景点  </span><br>        <span class="hljs-keyword">if</span> (result.containsKey(s)) &#123;  <br>            <span class="hljs-comment">// 说明这个景点之前统计过，其值+1，存入到Map集合中去  </span><br>            result.put(s, result.get(s) + <span class="hljs-number">1</span>);  <br>        &#125; <span class="hljs-keyword">else</span> &#123;  <br>            <span class="hljs-comment">// 说明这个景点是第一次统计，存入1  </span><br>            result.put(s, <span class="hljs-number">1</span>);  <br>        &#125;  <br>    &#125;  <br>    System.out.println(result);  <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><em>需要存储一一对应的数据时,就可以考虑使用Map集合来做</em></p>
+<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><h4 id="HashMap集合的底层原理"><a href="#HashMap集合的底层原理" class="headerlink" title="HashMap集合的底层原理"></a>HashMap集合的底层原理</h4><ul>
+<li>HashMap和HashSet的底层原理是一模一样的,都是基于哈希表实现的</li>
+</ul>
+<p><em>实际上:原来学的Set系列集合的底层就是基于Map实现的,只是Set集合中的元素只要键数据,不要值数据而已</em></p>
+<ul>
+<li>HashMap集合是一种增删改查数据,性能都比较好的集合</li>
+<li>但是它是无序,不能重复,没有索引支持的</li>
+<li>HashMap的键依赖hashCode方法和equals方法保证键的唯一 </li>
+<li>如果键存储的是自定义类型的对象,可以通过重写hashCode和equals方法,这样可以保证多个对象内容一样时,HashMap集合就能认为是重复的</li>
+</ul>
+<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><h4 id="TreeMap集合同样也支持两种方法来指定排序规则"><a href="#TreeMap集合同样也支持两种方法来指定排序规则" class="headerlink" title="TreeMap集合同样也支持两种方法来指定排序规则"></a>TreeMap集合同样也支持两种方法来指定排序规则</h4><ul>
+<li>让类实现Comparable接口,重写比较规则</li>
+<li>TreeMap集合有一个有参数构造器,支持创建Comparator比较器对象,以便于用来指定比较规则</li>
+</ul>
+<h3 id="补充知识-集合的嵌套"><a href="#补充知识-集合的嵌套" class="headerlink" title="补充知识:集合的嵌套"></a>补充知识:集合的嵌套</h3><ul>
+<li>集合中的元素又是一个集合</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JAVA%E5%AD%A6%E4%B9%A0/" class="category-chain-item">JAVA学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JAVA%E5%AD%A6%E4%B9%A0/" class="print-no-link">#JAVA学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>4-5 Map</div>
+      <div>http://example.com/2024/07/16/代码学习/JAVA学习/基础/4.第四章-集合框架/4-5 Map/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Svanur</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/16/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/JAVA%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80/7.%E5%A4%9A%E7%BA%BF%E7%A8%8B/7-1%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="7-1 多线程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">7-1 多线程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/16/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/JAVA%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80/JDK8-%E6%96%B0%E7%89%B9%E6%80%A7/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Lambda表达式">
+                        <span class="hidden-mobile">Lambda表达式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

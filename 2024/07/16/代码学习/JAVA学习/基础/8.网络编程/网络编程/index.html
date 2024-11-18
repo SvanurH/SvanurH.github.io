@@ -1,0 +1,897 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon/cat.png">
+  <link rel="icon" href="/img/icon/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Svanur">
+  <meta name="keywords" content="Svanur">
+  
+    <meta name="description" content="#JAVA学习 什么是网络编程? 可以让设备中的程序与网络上其他设备中的程序进行数据交互(实现网络通信的)  通信相关知识基本的通信架构 基本的通信架构有两种形式: CS架构(Client客户端&#x2F;Server服务端), BS架构(Browser浏览器&#x2F;Server服务端)  无论是CS架构,还是BS架构的软件都必须依赖网络编程 网络通信三要素关键三要素IP 全称”互联网协议地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络编程">
+<meta property="og:url" content="http://example.com/2024/07/16/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/JAVA%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80/8.%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Svanur&#39;s Blog">
+<meta property="og:description" content="#JAVA学习 什么是网络编程? 可以让设备中的程序与网络上其他设备中的程序进行数据交互(实现网络通信的)  通信相关知识基本的通信架构 基本的通信架构有两种形式: CS架构(Client客户端&#x2F;Server服务端), BS架构(Browser浏览器&#x2F;Server服务端)  无论是CS架构,还是BS架构的软件都必须依赖网络编程 网络通信三要素关键三要素IP 全称”互联网协议地址">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T11:11:19.079Z">
+<meta property="article:author" content="Svanur">
+<meta property="article:tag" content="JAVA学习">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>网络编程 - Svanur&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>我的学习记录</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/index_bg.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="网络编程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-16 00:00" pubdate>
+          2024年7月16日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">网络编程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>#JAVA学习</p>
+<h1 id="什么是网络编程"><a href="#什么是网络编程" class="headerlink" title="什么是网络编程?"></a>什么是网络编程?</h1><ul>
+<li>可以让设备中的程序与网络上其他设备中的程序进行数据交互(实现网络通信的)</li>
+</ul>
+<h1 id="通信相关知识"><a href="#通信相关知识" class="headerlink" title="通信相关知识"></a>通信相关知识</h1><h2 id="基本的通信架构"><a href="#基本的通信架构" class="headerlink" title="基本的通信架构"></a>基本的通信架构</h2><ul>
+<li>基本的通信架构有两种形式: CS架构(Client客户端&#x2F;Server服务端), BS架构(Browser浏览器&#x2F;Server服务端)</li>
+</ul>
+<p><strong>无论是CS架构,还是BS架构的软件都必须依赖网络编程</strong></p>
+<h2 id="网络通信三要素"><a href="#网络通信三要素" class="headerlink" title="网络通信三要素"></a>网络通信三要素</h2><h2 id="关键三要素"><a href="#关键三要素" class="headerlink" title="关键三要素"></a>关键三要素</h2><h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><ul>
+<li>全称”互联网协议地址”,设备在网络中的地址,是唯一的标识</li>
+<li>IP地址有两种形式: IPV4  IPV6</li>
+</ul>
+<h3 id="InetAddress"><a href="#InetAddress" class="headerlink" title="InetAddress"></a>InetAddress</h3><ul>
+<li>代表IP地址</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public static InetAddress getLocalHost()</code></td>
+<td>获取本机IP,会以一个inetAddress的对象返回</td>
+</tr>
+<tr>
+<td><code>public static InetAddress getByName(String host)</code></td>
+<td>根据ip地址或者域名,返回一个inetAddress对象</td>
+</tr>
+<tr>
+<td><code>public String getHostName()</code></td>
+<td>获取该ip地址对象对应的主机名</td>
+</tr>
+<tr>
+<td><code>public String getHostAddress()</code></td>
+<td>获取该ip地址对象中的ip地址信息</td>
+</tr>
+<tr>
+<td><code>public boolean isReachable(int timeout)</code></td>
+<td>在指定毫秒内,判断主机与该ip对应的主机是否能够连通</td>
+</tr>
+</tbody></table>
+<h3 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h3><ul>
+<li>标记正在计算机设备上运行的应用程序的,被规定为一个16位的二进制,范围是0-65535</li>
+</ul>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><ul>
+<li>周知端口 0-1023: 被预先定义的知名应用占用</li>
+<li>注册端口 1024-49151: 分配给用户进程或者某些应用程序的</li>
+<li>动态端口 49152-65535, 之所以被称为动态端口,是因为它一般不固定分配某种进程,而是动态分配</li>
+</ul>
+<p><strong>我们自己开发的程序一般使用注册端口,且一个设备中不能出现两个程序的端口号一样,否则会报错</strong></p>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><ul>
+<li>网络上通信的设备, 事先规定的连接规则, 以及传输数据的规则被称为网络通信协议</li>
+</ul>
+<h4 id="开放式网络互联标准-OSI网络参考模型"><a href="#开放式网络互联标准-OSI网络参考模型" class="headerlink" title="开放式网络互联标准: OSI网络参考模型"></a>开放式网络互联标准: OSI网络参考模型</h4><ul>
+<li>OSI网络参考模型: 全球网络互联标准</li>
+<li>TCP&#x2F;IP网络模型: 事实上的国际标准</li>
+</ul>
+<p>![[Pasted image 20240407214653.png]]</p>
+<h4 id="传输层的两个通信协议"><a href="#传输层的两个通信协议" class="headerlink" title="传输层的两个通信协议"></a>传输层的两个通信协议</h4><ul>
+<li>UDP: 用户数据包协议; TCP: 传输控制协议</li>
+</ul>
+<h5 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h5><ul>
+<li>特点: 无连接,不可靠通信</li>
+<li>不事先建立连接, 数据按照包发, 一包数据包含: 自己的IP 程序端口 目的地IP 程序端口和数据等</li>
+<li>通信效率高–语音通话–视频直播</li>
+</ul>
+<h5 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h5><ul>
+<li>特点: 面向连接, 可靠通信</li>
+<li>TCP的最终目的: 要保证在不可靠的信道上实现可靠的传输</li>
+<li>TCP主要有三个步骤实现可靠传输: 三次握手建立连接, 传输数据进行确认, 四次挥手断开连接</li>
+</ul>
+<h6 id="TCP协议-三次握手建立可靠连接"><a href="#TCP协议-三次握手建立可靠连接" class="headerlink" title="TCP协议: 三次握手建立可靠连接"></a>TCP协议: 三次握手建立可靠连接</h6><p><strong>可靠连接: 确定通信双方, 收发消息都是正常无问题的(全双工)</strong></p>
+<h1 id="UDP通信"><a href="#UDP通信" class="headerlink" title="UDP通信"></a>UDP通信</h1><ul>
+<li>不事先建立连接; 发送端每次把要发送的数据(限制在64KB内), 接收端IP, 等信息封装成一个数据包, 发出去就不管了</li>
+<li>Java提供了一个<code>java.net.DatagramSocket</code>类来实现UDP通信</li>
+</ul>
+<h2 id="DatagramSocket-用于创建客户端-服务端"><a href="#DatagramSocket-用于创建客户端-服务端" class="headerlink" title="DatagramSocket: 用于创建客户端 服务端"></a>DatagramSocket: 用于创建客户端 服务端</h2><table>
+<thead>
+<tr>
+<th>构造器</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public DatagramSocket()</code></td>
+<td>创建客户端的Socket对象,系统会随机分配一个端口号</td>
+</tr>
+<tr>
+<td><code>public DatagramSocket(int port)</code></td>
+<td>创建服务端的Socket对象,并指定端口号</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public void send(DatagramPacket dp)</code></td>
+<td>发送数据包</td>
+</tr>
+<tr>
+<td><code>public void receive(DatagramPacket p)</code></td>
+<td>使用数据包接收数据</td>
+</tr>
+</tbody></table>
+<h3 id="DatagramPacket-创建数据包"><a href="#DatagramPacket-创建数据包" class="headerlink" title="DatagramPacket 创建数据包"></a>DatagramPacket 创建数据包</h3><table>
+<thead>
+<tr>
+<th>构造器</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public DatagramPacket(byte[] buf, int length, InetAddress address, int port)</code></td>
+<td>创建发出去的数据包对象</td>
+</tr>
+<tr>
+<td><code>public DatagramPacket(byte[] buf, int length)</code></td>
+<td>创建用来接收数据的数据包</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public int getLength()</code></td>
+<td>获取数据包,实际接收到的字节个数</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java">class&#123;<br>	main&#123;<br>		 <span class="hljs-comment">// 1. 创建客户端对象  </span><br>		<span class="hljs-type">DatagramSocket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramSocket</span>();  <br>		<span class="hljs-comment">// 2. 创建数据包对象封装要发送出去的数据  </span><br>		<span class="hljs-type">byte</span>[] bytes = <span class="hljs-string">&quot;我是快乐的人&quot;</span>.getBytes();  <br>		<span class="hljs-type">DatagramPacket</span> <span class="hljs-variable">packet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(bytes, bytes.length, InetAddress.getLocalHost(), <span class="hljs-number">6666</span>);  <br>		<span class="hljs-comment">// 3. 开始正式发送这个数据包出去  </span><br>		socket.send(packet);  <br>		<span class="hljs-comment">// 4. 释放资源  </span><br>		socket.close();  <br>		System.out.println(<span class="hljs-string">&quot;客户端数据发送完毕&quot;</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Server</span> &#123;  <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;  <br>        <span class="hljs-comment">// 1. 创建一个服务端对象，注册端口  </span><br>        <span class="hljs-type">DatagramSocket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramSocket</span>(<span class="hljs-number">6666</span>);  <br>        <span class="hljs-comment">// 2. 创建一个数据包对象，用来接收数据  </span><br>        <span class="hljs-type">byte</span>[] bytes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">1024</span> * <span class="hljs-number">64</span>];  <br>        <span class="hljs-type">DatagramPacket</span> <span class="hljs-variable">packet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(bytes, bytes.length);  <br>        <span class="hljs-comment">// 3. 开始正式使用数据包来接收数据  </span><br>        socket.receive(packet);  <br>        <span class="hljs-comment">// 4. 从字节数组中，把接收到的数据直接打印出来  </span><br>        <span class="hljs-comment">// 获取本次数据包接受了多少数据  </span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> packet.getLength();  <br>        <span class="hljs-type">String</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(bytes, <span class="hljs-number">0</span>, len);  <br>        System.out.println(response);  <br>        socket.close();  <br>          <br>        <span class="hljs-comment">// 还可以接收到客户端的ip和端口  </span><br>        packet.getAddress();  <br>        packet.getPort();  <br>    &#125;  <br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="UDP通信-多发多收"><a href="#UDP通信-多发多收" class="headerlink" title="UDP通信-多发多收"></a>UDP通信-多发多收</h2><ul>
+<li>客户端循环</li>
+</ul>
+<h1 id="TCP通信"><a href="#TCP通信" class="headerlink" title="TCP通信"></a>TCP通信</h1><ul>
+<li>特点： 面向连接、可靠通信</li>
+<li>通信双方事先会采用“三次握手”方式建立可靠连接，事先端对端的通信；底层能保证数据成功传给服务器</li>
+<li>Java提供了一个<code>java.net.Socket</code>类来实现TCP通信</li>
+</ul>
+<h2 id="客户端开发"><a href="#客户端开发" class="headerlink" title="客户端开发"></a>客户端开发</h2><ul>
+<li>客户端程序就是通过<code>java.net包下的Socket类来实现的</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>构造器</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public Socket(String host, int port)</code></td>
+<td>根据指定的服务器ip, 端口号请求与服务端建立连接,连接通过,就获得了客户端Socket</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public OutputStream getOutStream()</code></td>
+<td>获得字节输出流对象</td>
+</tr>
+<tr>
+<td><code>public InputStream getInputStream()</code></td>
+<td>获得字节输入流对象</td>
+</tr>
+</tbody></table>
+<h3 id="客户端实现步骤"><a href="#客户端实现步骤" class="headerlink" title="客户端实现步骤"></a>客户端实现步骤</h3><ol>
+<li>创建客户端Socket对象,请求与服务端的连接</li>
+<li>使用socket对象调用getOutputStream()方法得到字节输出流</li>
+<li>使用字节输出流完成数据的发送 <ol>
+<li>[[5-3 IO流#IO流-数据流]]</li>
+<li>[[5-3 IO流#字节输出流]]</li>
+</ol>
+</li>
+<li>释放资源,关闭socket管道</li>
+</ol>
+<h2 id="服务端的开发"><a href="#服务端的开发" class="headerlink" title="服务端的开发"></a>服务端的开发</h2><ul>
+<li>服务端是通过<code>java.net</code>包下的ServerSocket类来实现的</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>构造器</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public ServerSocket(int port)</code></td>
+<td>为服务端程序注册端口</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public Socket accept()</code></td>
+<td>阻塞等待客户端的连接请求,一旦与某个客户端成功连接,则返回服务端这边的Socket对象</td>
+</tr>
+</tbody></table>
+<h3 id="服务端实现步骤"><a href="#服务端实现步骤" class="headerlink" title="服务端实现步骤"></a>服务端实现步骤</h3><ol>
+<li>创建ServerSocket对象, 注册服务端端口</li>
+<li>调用ServerSocket对象的accept()方法,等待客户端的连接, 并得到Socket管道对象</li>
+<li>通过Socket对象调用getInputStream()方法得到字节输入流, 完成数据的接收</li>
+<li>释放资源, 关闭socket管道</li>
+</ol>
+<h2 id="多发多收"><a href="#多发多收" class="headerlink" title="多发多收"></a>多发多收</h2><p>客户端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)&#123;<br>	...<br>	dataOutputStream.writeUTF(msg);<br>	dataOutputStream.flush();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>服务端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">...<br><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)&#123;<br>	<span class="hljs-type">String</span> <span class="hljs-variable">reponse</span> <span class="hljs-operator">=</span> dataInputStream.readUTF();<br>	System.out.prinltn(response);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>客户端关闭了管道,服务端在等到管道中的消息的时候会报错</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">...<br><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)&#123;<br>	<span class="hljs-keyword">try</span>&#123;<br>		<span class="hljs-type">String</span> <span class="hljs-variable">reponse</span> <span class="hljs-operator">=</span> dataInputStream.readUTF();<br>		System.out.prinltn(response);<br>	&#125;<span class="hljs-keyword">catch</span>(Exception e)&#123;<br>		System.out.println(socke.getRemoteSocketAddress()+<span class="hljs-string">&quot;离线了&quot;</span>);<br>		dis.close();<br>		socket.close();<br>		<span class="hljs-keyword">break</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用TCP通信实现-多发多收消息"><a href="#使用TCP通信实现-多发多收消息" class="headerlink" title="使用TCP通信实现: 多发多收消息"></a>使用TCP通信实现: 多发多收消息</h3><ol>
+<li>客户端使用死循环, 让用户不断输入消息</li>
+<li>服务端也使用死循环, 控制服务端收完消息, 继续等待接收下一个消息</li>
+</ol>
+<h2 id="支持与多个客户端同时通信"><a href="#支持与多个客户端同时通信" class="headerlink" title="支持与多个客户端同时通信"></a>支持与多个客户端同时通信</h2><ul>
+<li>当前服务端只有一个主线程, 只能处理一个客户端的消息</li>
+</ul>
+<h3 id="使用多线程"><a href="#使用多线程" class="headerlink" title="使用多线程"></a>使用多线程</h3><ul>
+<li>主线程: 负责接收客户端连接<ul>
+<li>socket 子线程</li>
+<li>socket 子线程2</li>
+</ul>
+</li>
+<li>每个子线程对应一个客户端的连接</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JAVA%E5%AD%A6%E4%B9%A0/" class="category-chain-item">JAVA学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JAVA%E5%AD%A6%E4%B9%A0/" class="print-no-link">#JAVA学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>网络编程</div>
+      <div>http://example.com/2024/07/16/代码学习/JAVA学习/基础/8.网络编程/网络编程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Svanur</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/16/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/JAVA%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80/JDK8-%E6%96%B0%E7%89%B9%E6%80%A7/Stream/" title="Stream">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Stream</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/16/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/JAVA%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80/9.%E9%AB%98%E7%BA%A7%E6%8A%80%E6%9C%AF/9-1%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" title="9-1 单元测试">
+                        <span class="hidden-mobile">9-1 单元测试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

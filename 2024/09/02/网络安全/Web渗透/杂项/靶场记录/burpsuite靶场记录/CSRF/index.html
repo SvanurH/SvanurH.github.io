@@ -1,0 +1,728 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon/cat.png">
+  <link rel="icon" href="/img/icon/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Svanur">
+  <meta name="keywords" content="Svanur">
+  
+    <meta name="description" content="#网络安全 #靶场 基于DOM的开放重定向12let url &#x3D; &#x2F;https?:\&#x2F;\&#x2F;.+&#x2F;.exec(location.hash); if (url) &#123;   location &#x3D; url[0];&#125;  location.hash: 一般情况下为URL后 &quot;#&quot; 及其后面一部分组成，如http:&#x2F;&#x2F;www.test.com&#x2F;#&#x2F;something， 发现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSRF">
+<meta property="og:url" content="http://example.com/2024/09/02/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/burpsuite%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/CSRF/index.html">
+<meta property="og:site_name" content="Svanur&#39;s Blog">
+<meta property="og:description" content="#网络安全 #靶场 基于DOM的开放重定向12let url &#x3D; &#x2F;https?:\&#x2F;\&#x2F;.+&#x2F;.exec(location.hash); if (url) &#123;   location &#x3D; url[0];&#125;  location.hash: 一般情况下为URL后 &quot;#&quot; 及其后面一部分组成，如http:&#x2F;&#x2F;www.test.com&#x2F;#&#x2F;something， 发现">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T11:11:19.209Z">
+<meta property="article:author" content="Svanur">
+<meta property="article:tag" content="网络安全">
+<meta property="article:tag" content="靶场">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>CSRF - Svanur&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>我的学习记录</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/index_bg.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CSRF"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-02 00:00" pubdate>
+          2024年9月2日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CSRF</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>#网络安全 #靶场</p>
+<h1 id="基于DOM的开放重定向"><a href="#基于DOM的开放重定向" class="headerlink" title="基于DOM的开放重定向"></a>基于DOM的开放重定向</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> url = <span class="hljs-regexp">/https?:\/\/.+/</span>.<span class="hljs-title function_">exec</span>(location.<span class="hljs-property">hash</span>); <span class="hljs-keyword">if</span> (url) &#123;   location = url[<span class="hljs-number">0</span>];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>location.hash: 一般情况下为URL后 &quot;#&quot; 及其后面一部分组成，如http://www.test.com/#/something，</code></p>
+<h2 id="发现漏洞存在点"><a href="#发现漏洞存在点" class="headerlink" title="发现漏洞存在点"></a>发现漏洞存在点</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;returnUrl = /url=(https?:\/\/.+)/.exec(location); location.href = returnUrl ? returnUrl[1] : <span class="hljs-symbol">&amp;quot;</span>/<span class="hljs-symbol">&amp;quot;</span>&quot;</span>&gt;</span>Back to Blog<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>分析: <code>https?:\/\/.+</code>是一个正则表达式，匹配url地址</p>
+</blockquote>
+<blockquote>
+<p><code>exec()</code> 方法用于检索字符串中的正则表达式的匹配。如果字符串中有匹配的值返回该匹配值，否则返回 null。</p>
+</blockquote>
+<p><code>RegExp.prototype.exec(str)</code></p>
+<ul>
+<li>str 要匹配正则表达式的字符串</li>
+</ul>
+<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p><code>匹配写法：#url=https://www.baidu.com</code>,在url后面加上<code>#url=https://www.baidu.com</code>然后点击a标签即可跳转百度</p>
+<h3 id="官方解答"><a href="#官方解答" class="headerlink" title="官方解答"></a>官方解答</h3><p><code>使用&amp;进行连接，&amp;url</code></p>
+<h1 id="基于DOM的cookie操作"><a href="#基于DOM的cookie操作" class="headerlink" title="基于DOM的cookie操作"></a>基于DOM的cookie操作</h1><blockquote>
+<p>攻击者可以利用此漏洞构造一个URL，如果其他用户访问该URL，则会在用户的Cookie中设置任意值。许多接收器本身基本上是无害的，但基于DOM的cookie操纵攻击表明，低严重性漏洞有时可以用作高严重性攻击的利用链的一部分。例如，如果JavaScript将数据从源写入<code>document.cookie</code>，而不首先对其进行清理，则攻击者可以操纵单个cookie的值以注入任意值：<code>document.cookie = &#39;cookieName=&#39;+location.hash.slice(1);</code></p>
+</blockquote>
+<p>本实验演示基于DOM的客户端cookie操作。为了解决这个实验，注入一个cookie，它将在不同的页面上导致<a target="_blank" rel="noopener" href="https://portswigger.net/web-security/cross-site-scripting">XSS，</a>并调用<code>print()</code>函数。您需要使用漏洞服务器将受害者引导到正确的页面。</p>
+<h2 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h2><p>直接搜索<code>script</code>发现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">document</span>.<span class="hljs-property">cookie</span> = <span class="hljs-string">&#x27;lastViewedProduct=&#x27;</span> + <span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span> + <span class="hljs-string">&#x27;; SameSite=None; Secure&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>cookie由location组成，接下来查看什么地方读取cookie，或者直接构造单引号跳出js</p>
+<p>由于location中的url无法构造，直接看第一种方法</p>
+<ul>
+<li>察觉到页面上有一个<code>最后查看的产品</code>功能，推测和cookie有关，准备从这里下手</li>
+</ul>
+<p>更改url,发现刷新页面后，a标签href会变成上个url,发现是单引号，可以跳出</p>
+<h2 id="解题-1"><a href="#解题-1" class="headerlink" title="解题"></a>解题</h2><p>构造无需交互的payload</p>
+<p><code>&amp;&#39; onfocus=window.location=&#39;&#39; autofocus tabindex=1&gt;</code><br>能够利用xss漏洞但是不能解题，奇奇怪怪，可能是<code>它将在不同的页面上导致xss</code>这个点没有解决</p>
+<h1 id="SameSite通过兄弟域严格绕过"><a href="#SameSite通过兄弟域严格绕过" class="headerlink" title="SameSite通过兄弟域严格绕过"></a>SameSite通过兄弟域严格绕过</h1><h2 id="发现-1"><a href="#发现-1" class="headerlink" title="发现"></a>发现</h2><p>[[CORS 相关知识]]</p>
+<p>页面提示</p>
+<blockquote>
+<p>本实验的实时聊天功能容易受到<a target="_blank" rel="noopener" href="https://portswigger.net/web-security/websockets/cross-site-websocket-hijacking">跨站点WebSocket劫持</a>（<a target="_blank" rel="noopener" href="https://portswigger.net/web-security/websockets/cross-site-websocket-hijacking">CSWSH</a>）的攻击。要破解实验室登录受害者的账户</p>
+</blockquote>
+<p>为此，请使用提供的漏洞利用服务器执行CSWSH攻击，将受害者的聊天历史记录暴露到默认的Burp Collaborator服务器。聊天历史记录包含纯文本形式的登录凭据。</p>
+<ul>
+<li>注意到页面上具有Live chat，大概率从这里入手</li>
+</ul>
+<h2 id="漏洞梳理"><a href="#漏洞梳理" class="headerlink" title="漏洞梳理"></a>漏洞梳理</h2><p>首先在实时聊天功能具有CSWSH漏洞</p>
+<blockquote>
+<p>跨站点WebSocket劫持（也称为跨源WebSocket劫持）涉及<a target="_blank" rel="noopener" href="https://portswigger.net/web-security/websockets/what-are-websockets#how-are-websocket-connections-established">WebSocket握手</a>上的<a target="_blank" rel="noopener" href="https://portswigger.net/web-security/csrf">跨站点请求伪造</a>（CSRF）漏洞。当WebSocket握手请求仅依赖于HTTP cookie进行会话处理并且不包含任何CSRF令牌或其他不可预测的值时，就会出现这种情况。<br>攻击者可以在自己的域中创建恶意网页，从而建立到易受攻击的应用程序的跨站点WebSocket连接。应用程序将在受害用户与应用程序的会话的上下文中处理连接。<br>然后，攻击者的页面可以通过连接向服务器发送任意消息，并读取从服务器接收回的消息的内容。这意味着，与常规CSRF不同，攻击者可以获得与受损应用程序的双向交互。</p>
+</blockquote>
+<ul>
+<li>伪装成受害者用户执行未经授权的操作。与常规CSRF一样，攻击者可以向服务器端应用程序发送任意消息。如果应用程序使用客户端生成的WebSocket消息来执行任何敏感操作，则攻击者可以跨域生成合适的消息并触发这些操作。</li>
+<li>用户可以访问的网络敏感数据。与常规CSRF不同，跨站点WebSocket劫持使攻击者能够通过被劫持的WebSocket与易受攻击的应用程序进行双向交互。如果应用程序使用服务器生成的WebSocket消息向用户返回任何敏感数据，那么攻击者可以拦截这些消息并捕获受害用户的数据。</li>
+</ul>
+<p>经过测试后，发现发送READY消息后会返回全部的聊天记录，但是使用burp测试发现只能重新打开一个新的会话，并不能返回全部的记录。<br>确定是因为cookie没有随着消息一起发送导致，由于页面采取严格的SameSite策略，只能通过别的地方让用户跳转来获取记录</p>
+<p>发现在同一站点中存在xss漏洞，因此构造xss为发送ready消息payload上。然后就可以有cookie从而能够获得全部的消息请求。</p>
+<h2 id="不明白的点"><a href="#不明白的点" class="headerlink" title="不明白的点"></a>不明白的点</h2><p>A网站samesite为严格，但是设置了其资源可以被同级源B网站进行访问，B网站存在XSS漏洞，利用B网站中的XSS构造playload，使其访问A网站上的资源，最后一步访问时，为什么带着cookie。正常来说不是应该不带着cookie么</p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>samesite检测的是跨站请求，站之间只要满足eTLD+1都是同站，不会被samesite所限制。同源三同</p>
+<h3 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h3><blockquote>
+<p>具有<strong>相同协议</strong>，<strong>主机名</strong>和<strong>端口</strong>的组合的网站被视为 <strong>相同来源</strong> 。其他所有内容均视为 <strong>跨域</strong></p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1651506">同站、同源</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7233698667848777787?from=search-suggest#heading-5">同源、跨域、同站、跨站</a></p>
+<h1 id="通过cookie刷新绕过SameSite-Lax"><a href="#通过cookie刷新绕过SameSite-Lax" class="headerlink" title="通过cookie刷新绕过SameSite Lax"></a>通过cookie刷新绕过SameSite Lax</h1><h2 id="发现-2"><a href="#发现-2" class="headerlink" title="发现"></a>发现</h2><p>此次的登录窗口与之前以往的不同，有一个跳转的操作</p>
+<p>根据学习页面的提示</p>
+<blockquote>
+<p>…使您能够强制受害者获得新的会话cookie，则可以在进行主要攻击之前抢先刷新他们的cookie…</p>
+</blockquote>
+<p>准备查找这种页面，找到页面后发现每次刷新都会导致cookie的重新获取，哪怕登出账户后访问此网址也会导致cookie的刷新，并且能够重新登录成功。</p>
+<h2 id="解题-2"><a href="#解题-2" class="headerlink" title="解题"></a>解题</h2><p>因此构造payload的思路就是，访问刷新cookie的页面，然后延时等待其登录成功，等到刷新cookie后，执行生成CSRF的POC中的提交操作</p>
+<h1 id="CSRF，其中Referer验证取决于存在的标头"><a href="#CSRF，其中Referer验证取决于存在的标头" class="headerlink" title="CSRF，其中Referer验证取决于存在的标头"></a>CSRF，其中Referer验证取决于存在的标头</h1><blockquote>
+<p>一些应用程序在请求中存在<code>Referer</code>头时验证它，但如果头被省略，则跳过验证。<br>在这种情况下，攻击者可以精心制作<a target="_blank" rel="noopener" href="https://portswigger.net/web-security/csrf">CSRF漏洞</a>，使受害用户的浏览器在结果请求中删除<code>Referer</code>头。有多种方法可以实现这一点，但最简单的是在托管<a target="_blank" rel="noopener" href="https://portswigger.net/web-security/csrf">CSRF攻击</a>的HTML页面中使用Meta标记：<br><code>&lt;meta name=&quot;referrer&quot; content=&quot;never&quot;&gt;</code></p>
+</blockquote>
+<h2 id="发现-3"><a href="#发现-3" class="headerlink" title="发现"></a>发现</h2><p>先更改个邮箱试试水</p>
+<h2 id="解题-3"><a href="#解题-3" class="headerlink" title="解题"></a>解题</h2><p>根据提示，直接修改referrer，过关</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA/" class="category-chain-item">靶场</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="print-no-link">#网络安全</a>
+      
+        <a href="/tags/%E9%9D%B6%E5%9C%BA/" class="print-no-link">#靶场</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CSRF</div>
+      <div>http://example.com/2024/09/02/网络安全/Web渗透/杂项/靶场记录/burpsuite靶场记录/CSRF/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Svanur</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/02/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/PHP%E5%AD%A6%E4%B9%A0/PDO%E9%A2%84%E5%A4%84%E7%90%86/" title="PDO预处理">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PDO预处理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/02/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/burpsuite%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/X-Forwarded-For/" title="X-Forwarded-For">
+                        <span class="hidden-mobile">X-Forwarded-For</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

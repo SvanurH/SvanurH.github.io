@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon/cat.png">
+  <link rel="icon" href="/img/icon/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Svanur">
+  <meta name="keywords" content="Svanur">
+  
+    <meta name="description" content="#python   多线程 threading 利用CPU和IO可以同时执行的原理，让CPU不会等待IO完成  多进程multiprocessing 利用多核CPU的能力，真正的并行执行任务  异步IO asyncio 在单线程利用CPU和IO同时执行的原理，实现函数异步执行  使用Lock对资源加锁，防止冲突访问  使用Queue实现不同线程&#x2F;进程之间的数据通信  使用线程池Pool&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python并发编程">
+<meta property="og:url" content="http://example.com/2024/09/25/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/python%E5%AD%A6%E4%B9%A0/python%E5%9F%BA%E7%A1%80/python%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Svanur&#39;s Blog">
+<meta property="og:description" content="#python   多线程 threading 利用CPU和IO可以同时执行的原理，让CPU不会等待IO完成  多进程multiprocessing 利用多核CPU的能力，真正的并行执行任务  异步IO asyncio 在单线程利用CPU和IO同时执行的原理，实现函数异步执行  使用Lock对资源加锁，防止冲突访问  使用Queue实现不同线程&#x2F;进程之间的数据通信  使用线程池Pool&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T11:11:19.098Z">
+<meta property="article:author" content="Svanur">
+<meta property="article:tag" content="Svanur">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>python并发编程 - Svanur&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>我的学习记录</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/index_bg.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="python并发编程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-25 00:00" pubdate>
+          2024年9月25日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">python并发编程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>#python </p>
+<ul>
+<li><p>多线程 <code>threading</code> 利用CPU和IO可以同时执行的原理，让CPU不会等待IO完成</p>
+</li>
+<li><p>多进程<code>multiprocessing</code> 利用多核CPU的能力，真正的<strong>并行</strong>执行任务</p>
+</li>
+<li><p>异步IO <code>asyncio</code> 在单线程利用CPU和IO同时执行的原理，实现函数异步执行</p>
+</li>
+<li><p>使用Lock对资源加锁，防止冲突访问</p>
+</li>
+<li><p>使用Queue实现不同线程&#x2F;进程之间的数据通信</p>
+</li>
+<li><p>使用线程池Pool&#x2F;进程池Pool，简化线程&#x2F;进程的任务提交，等待结束，获取结果</p>
+</li>
+<li><p>使用subprocess启动外部程序的进程，并进行输入输出交互</p>
+</li>
+</ul>
+<h1 id="三种方式"><a href="#三种方式" class="headerlink" title="三种方式"></a>三种方式</h1><h2 id="什么是CPU密集型计算、IO密集型计算"><a href="#什么是CPU密集型计算、IO密集型计算" class="headerlink" title="什么是CPU密集型计算、IO密集型计算"></a>什么是CPU密集型计算、IO密集型计算</h2><h3 id="CPU密集型"><a href="#CPU密集型" class="headerlink" title="CPU密集型"></a>CPU密集型</h3><p>CPU密集型也叫计算密集型，是指I&#x2F;O在很短的时间就可以完成，CPU需要大量的计算和处理，特点是CPU占用率相当高</p>
+<p>例如：压缩解压缩、加密解密、正则表达式搜索</p>
+<h3 id="IO密集型"><a href="#IO密集型" class="headerlink" title="IO密集型"></a>IO密集型</h3><p>指的是系统运作大部分的状况是CPU在等待I&#x2F;O的读写操作，CPU占用率仍然较低</p>
+<p>例如：文件处理程序、网络爬虫程序、读写数据库程序</p>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ul>
+<li>一个进程中可以启动N个线程</li>
+<li>一个线程中可以启动N个协程</li>
+</ul>
+<h3 id="多进程Process-multiprocessing"><a href="#多进程Process-multiprocessing" class="headerlink" title="多进程Process multiprocessing"></a>多进程Process <code>multiprocessing</code></h3><ul>
+<li>优点：可以利用多核CPU并行计算</li>
+<li>缺点：占用资源最多，可启动数目比线程少</li>
+<li>适用于：CPU密集型计算</li>
+</ul>
+<h3 id="多线程Thread-threading"><a href="#多线程Thread-threading" class="headerlink" title="多线程Thread threading"></a>多线程Thread <code>threading</code></h3><ul>
+<li><p>优点：相比进程，更轻量级、占用资源小</p>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>相比进程：多线程只能并发执行，不能利用多CPU（GIL）</li>
+<li>相比协程：启动数目有限制，占用内存资源，有线程切换开销</li>
+</ul>
+</li>
+<li><p>适用于：IO密集型计算、同时运行的任务数目要求不多</p>
+</li>
+</ul>
+<h3 id="多协程Coroutine-asyncio"><a href="#多协程Coroutine-asyncio" class="headerlink" title="多协程Coroutine asyncio"></a>多协程Coroutine <code>asyncio</code></h3><ul>
+<li>优点：内存开销最少，启动的协程数量最多</li>
+<li>缺点：支持的库有限制（aiohttp vs requests)、代码实现复杂</li>
+<li>适用于：IO密集型计算、需要超多任务运行、但有现成库支持的场景</li>
+</ul>
+<h3 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h3><ul>
+<li>待执行任务<ul>
+<li>CPU密集型<ul>
+<li>多进程</li>
+</ul>
+</li>
+<li>IO密集型<ul>
+<li>需要超多的任务量</li>
+<li>有现成协程库支持</li>
+<li>协程实现复杂度可接受<ul>
+<li>是<ul>
+<li>多协程</li>
+</ul>
+</li>
+<li>否<ul>
+<li>多线程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="GIL"><a href="#GIL" class="headerlink" title="GIL"></a>GIL</h1><h2 id="python速度慢的两大原因"><a href="#python速度慢的两大原因" class="headerlink" title="python速度慢的两大原因"></a>python速度慢的两大原因</h2><ol>
+<li>动态类型语言，边解释边执行</li>
+<li>GIL无法利用多核CPU并发执行</li>
+</ol>
+<h2 id="GIL是什么"><a href="#GIL是什么" class="headerlink" title="GIL是什么"></a>GIL是什么</h2><p>全局解释器锁</p>
+<p>是计算机设计语言解释器用于同步线程的一种机制，它使得任何时刻仅有一个线程在执行，即便是在多核处理器上，使用GIL的解释器也只允许同一时间执行一个线程</p>
+<h2 id="为什么有GIL这个东西"><a href="#为什么有GIL这个东西" class="headerlink" title="为什么有GIL这个东西"></a>为什么有GIL这个东西</h2><blockquote>
+<p>python设计初期，为了规避并发问题引入了GIL，现在想去除却去不掉了</p>
+</blockquote>
+<p>为了解决多线程之间数据完整性和状态同步问题，python中对象的管理，是使用引用计数器进行的，引用数为0则释放对象</p>
+<h2 id="怎么规避GIL带来的限制"><a href="#怎么规避GIL带来的限制" class="headerlink" title="怎么规避GIL带来的限制"></a>怎么规避GIL带来的限制</h2><ol>
+<li><p>多线程threading机制依然是有用的，用于IO密集型计算，因为在I&#x2F;O期间，线程会释放GIL，实现CPU和IO的并行，但是多线程用于CPU密集型计算时，指挥更加拖慢速度</p>
+</li>
+<li><p>使用<code>multiprocessing</code>的多进程机制实现并行计算、利用多核CPU优势，为了应对GIL的问题，Python提供了<code>multiprocessing</code></p>
+</li>
+</ol>
+<h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1><h1 id="多进程-1"><a href="#多进程-1" class="headerlink" title="多进程"></a>多进程</h1><ul>
+<li>多进程也是实现多任务的一种方式</li>
+</ul>
+<h2 id="进程的概念"><a href="#进程的概念" class="headerlink" title="进程的概念"></a>进程的概念</h2><ul>
+<li>进程 是资源分配的最小单位，也是线程的容器</li>
+</ul>
+<p><strong>程序是固定不变的，而进程会根据运行需要，让操作系统动态分配各中资源</strong></p>
+<p>CPU的时间片轮转，在不同的时间段切换执行不同的进程，但是切换进程是比较耗时的；就引来了轻量级进程，也就是所谓的线程，一个进程中包括多个线程</p>
+<ul>
+<li>程序：xx.py 是一个静态的</li>
+<li>进程：一个程序运行起来后，代码+用到的资源 称之为进程，他是操作系统分配资源的基本单元</li>
+</ul>
+<h2 id="进程的状态"><a href="#进程的状态" class="headerlink" title="进程的状态"></a>进程的状态</h2><p>工作中，任务数往往大于CPU的核数，即一定有一些任务正在执行，而另外一些任务在等待cpu进行执行，因此导致有了不同的状态</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">新建</span><span class="hljs-literal">----</span><span class="hljs-comment">启动</span><span class="hljs-literal">----</span>&gt;<span class="hljs-comment">就绪</span>&lt;<span class="hljs-literal">----</span><span class="hljs-comment">调度</span><span class="hljs-literal">----</span>&gt;<span class="hljs-comment">运行</span><span class="hljs-literal">----</span><span class="hljs-comment">结束</span><span class="hljs-literal">----</span>&gt;<span class="hljs-comment">死亡</span><br><span class="hljs-comment">						等待</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>就绪态</li>
+<li>执行态</li>
+<li>等待态</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>python并发编程</div>
+      <div>http://example.com/2024/09/25/代码学习/python学习/python基础/python并发编程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Svanur</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/25/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/python%E5%AD%A6%E4%B9%A0/python%E5%9F%BA%E7%A1%80/%E5%A4%9A%E8%BF%9B%E7%A8%8B/" title="多进程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">多进程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/25/%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0/python%E5%AD%A6%E4%B9%A0/python%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="多线程">
+                        <span class="hidden-mobile">多线程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

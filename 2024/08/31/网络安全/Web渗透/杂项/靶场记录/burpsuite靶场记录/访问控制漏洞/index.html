@@ -1,0 +1,711 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon/cat.png">
+  <link rel="icon" href="/img/icon/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Svanur">
+  <meta name="keywords" content="Svanur">
+  
+    <meta name="description" content="#网络安全 #靶场 垂直访问控制垂直访问控制是将敏感功能的访问限制在特定类型用户的机制。 通过垂直访问控制，不同类型的用户可以访问不同的应用程序功能。例如，管理员可以修改或删除任何用户的帐户，而普通用户则无法访问这些操作。垂直访问控制可以是安全模型的更细粒度的实现，旨在强制执行职责分离和最小特权等业务策略。 横向访问控制水平访问控制是将资源访问限制为特定用户的机制。 通过水平访问控制，不同的用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="访问控制漏洞">
+<meta property="og:url" content="http://example.com/2024/08/31/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/burpsuite%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="Svanur&#39;s Blog">
+<meta property="og:description" content="#网络安全 #靶场 垂直访问控制垂直访问控制是将敏感功能的访问限制在特定类型用户的机制。 通过垂直访问控制，不同类型的用户可以访问不同的应用程序功能。例如，管理员可以修改或删除任何用户的帐户，而普通用户则无法访问这些操作。垂直访问控制可以是安全模型的更细粒度的实现，旨在强制执行职责分离和最小特权等业务策略。 横向访问控制水平访问控制是将资源访问限制为特定用户的机制。 通过水平访问控制，不同的用户">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T11:11:19.213Z">
+<meta property="article:author" content="Svanur">
+<meta property="article:tag" content="网络安全">
+<meta property="article:tag" content="靶场">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>访问控制漏洞 - Svanur&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>我的学习记录</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/index_bg.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="访问控制漏洞"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-31 00:00" pubdate>
+          2024年8月31日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">访问控制漏洞</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p> #网络安全 #靶场</p>
+<h3 id="垂直访问控制"><a href="#垂直访问控制" class="headerlink" title="垂直访问控制"></a>垂直访问控制</h3><p>垂直访问控制是将敏感功能的访问限制在特定类型用户的机制。</p>
+<p>通过垂直访问控制，不同类型的用户可以访问不同的应用程序功能。例如，管理员可以修改或删除任何用户的帐户，而普通用户则无法访问这些操作。垂直访问控制可以是安全模型的更细粒度的实现，旨在强制执行职责分离和最小特权等业务策略。</p>
+<h3 id="横向访问控制"><a href="#横向访问控制" class="headerlink" title="横向访问控制"></a>横向访问控制</h3><p>水平访问控制是将资源访问限制为特定用户的机制。</p>
+<p>通过水平访问控制，不同的用户可以访问相同类型的资源子集。例如，银行应用程序将允许用户查看交易并从自己的帐户进行支付，但不允许任何其他用户的帐户。</p>
+<h3 id="上下文相关的访问控制"><a href="#上下文相关的访问控制" class="headerlink" title="上下文相关的访问控制"></a>上下文相关的访问控制</h3><p>上下文相关的访问控制根据应用程序的状态或用户与应用程序的交互来限制对功能和资源的访问。<br>上下文相关的访问控制可防止用户以错误的顺序执行操作。例如，零售网站可能会阻止用户在付款后修改其购物车的内容。</p>
+<h1 id="实验室"><a href="#实验室" class="headerlink" title="实验室"></a>实验室</h1><ul>
+<li>可以查看<code>robots.txt</code>文件来查看网站目录，也可以使用单词列表来暴力破解敏感功能位置</li>
+<li>某些javascript脚本中可能泄露敏感url地址</li>
+</ul>
+<h2 id="基于参数的访问控制"><a href="#基于参数的访问控制" class="headerlink" title="基于参数的访问控制"></a>基于参数的访问控制</h2><p>有些应用程序在登录时确定用户的访问权限或角色，然后将此信息存储在用户可控制的位置。这可能是：</p>
+<ul>
+<li>一个隐藏的参数。</li>
+<li>cookie</li>
+<li>预设的查询字符串参数。</li>
+</ul>
+<h3 id="实验：可以在用户配置文件中修改用户角色"><a href="#实验：可以在用户配置文件中修改用户角色" class="headerlink" title="实验：可以在用户配置文件中修改用户角色"></a>实验：可以在用户配置文件中修改用户角色</h3><p><strong>注意post请求中的修改用户功能，有些功能可以隐藏式的修改用户身份</strong></p>
+<h2 id="平台配置错误导致访问控制中断"><a href="#平台配置错误导致访问控制中断" class="headerlink" title="平台配置错误导致访问控制中断"></a>平台配置错误导致访问控制中断</h2><p>有些应用程序在平台层强制执行访问控制。他们通过根据用户的角色限制对特定URL和HTTP方法的访问来做到这一点。例如，应用程序可以如下配置规则：</p>
+<p><code>DENY: POST, /admin/deleteUser, managers</code></p>
+<p>此规则拒绝管理员组中的用户访问URL <code>POST</code>上的<code>/admin/deleteUser</code>方法。在这种情况下，各种事情都可能出错，导致访问控制绕过。</p>
+<p>一些应用程序框架支持各种非标准HTTP头，可用于覆盖原始请求中的URL，例如<code>X-Original-URL</code>和<code>X-Rewrite-URL</code>。如果网站使用严格的前端控制来限制基于URL的访问，但应用程序允许通过请求头覆盖URL，则可以使用以下请求绕过访问控制：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">X-Original-URL</span><span class="hljs-punctuation">: </span>/admin/deleteUser ...<br></code></pre></td></tr></table></figure>
+
+<h3 id="实验：可以规避基于URL的访问控制"><a href="#实验：可以规避基于URL的访问控制" class="headerlink" title="实验：可以规避基于URL的访问控制"></a>实验：可以规避基于URL的访问控制</h3><p>在http包中加入以下内容</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/</span> <span class="hljs-meta">HTTP/2</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>0adc00ce039cf1e480c5217900cf00bd.web-security-academy.net<br><span class="hljs-attribute">X-Original-Url</span><span class="hljs-punctuation">: </span>/invalid<br></code></pre></td></tr></table></figure>
+
+<p>如果回显显示404，说明后端系统处理了<code>X-Original-Url</code></p>
+<p>解题包</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/?username=carlos</span> <span class="hljs-meta">HTTP/2</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>0adc00ce039cf1e480c5217900cf00bd.web-security-academy.net<br><span class="hljs-attribute">X-Original-Url</span><span class="hljs-punctuation">: </span>/admin/delete<br><span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>0<br></code></pre></td></tr></table></figure>
+
+<h3 id="实验：可以规避基于方法的访问控制"><a href="#实验：可以规避基于方法的访问控制" class="headerlink" title="实验：可以规避基于方法的访问控制"></a>实验：可以规避基于方法的访问控制</h3><blockquote>
+<p>如果后端只禁止了POST请求，可以尝试GET请求</p>
+</blockquote>
+<h2 id="URL匹配不一致导致访问控制中断"><a href="#URL匹配不一致导致访问控制中断" class="headerlink" title="URL匹配不一致导致访问控制中断"></a>URL匹配不一致导致访问控制中断</h2><ul>
+<li>大小写绕过限制</li>
+</ul>
+<h3 id="Spring框架"><a href="#Spring框架" class="headerlink" title="Spring框架"></a>Spring框架</h3><blockquote>
+<p>如果开启了<code>useSuffixPatternMatch</code>选项，这允许将具有任意文件扩展名的路径映射到没有文件扩展名的等效端点。</p>
+</blockquote>
+<p>对<code>/admin/deleteUser.anything</code>的请求仍然会匹配<code>/admin/deleteUser</code>模式。在<strong>Spring 5.3</strong>之前，默认情况下<strong>启用</strong>此选项。</p>
+<p>在其他系统上，您可能会遇到是否将<code>/admin/deleteUser</code>和<code>/admin/deleteUser/</code>视为不同端点的差异。在这种情况下，您可以通过在路径后面附加一个斜杠来绕过访问控制。</p>
+<ul>
+<li>特定版本或配置 加后缀名绕过</li>
+<li>加斜杠绕过</li>
+</ul>
+<h2 id="水平权限提升"><a href="#水平权限提升" class="headerlink" title="水平权限提升"></a>水平权限提升</h2><blockquote>
+<p>如果用户能够访问属于另一个用户的资源，而不是他们自己的资源类型，则会发生水平权限升级。例如，如果一个员工可以访问其他员工的记录以及他们自己的记录，那么这就是水平权限提升。</p>
+</blockquote>
+<ul>
+<li>在某些应用程序中，可利用参数没有可预测的值。例如，应用程序可以使用全局唯一标识符（GUID）来标识用户，而不是使用递增的数字。这可能会阻止攻击者猜测或预测另一个用户的标识符。但是，属于其他用户的GUID可能会在<strong>引用用户的应用程序中的其他地方公开</strong>，例如用户消息或评论。</li>
+</ul>
+<h2 id="基于引用者的访问控制"><a href="#基于引用者的访问控制" class="headerlink" title="基于引用者的访问控制"></a>基于引用者的访问控制</h2><p>一些网站基于HTTP请求中提交的<code>Referer</code>头进行访问控制。<code>Referer</code>头可以被浏览器添加到请求中，以指示哪个页面发起了请求。</p>
+<p>例如，应用程序在<code>/admin</code>的主管理页面上鲁棒地实施访问控制，但是对于诸如<code>/admin/deleteUser</code>的子页面，仅检查<code>Referer</code>头。如果<code>Referer</code>头包含主<code>/admin</code> URL，则允许请求。</p>
+<p>在这种情况下，<code>Referer</code>头可以完全由攻击者控制。这意味着他们可以通过提供所需的<code>Referer</code>头来伪造对敏感子页面的直接请求，并获得未经授权的访问。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA/" class="category-chain-item">靶场</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="print-no-link">#网络安全</a>
+      
+        <a href="/tags/%E9%9D%B6%E5%9C%BA/" class="print-no-link">#靶场</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>访问控制漏洞</div>
+      <div>http://example.com/2024/08/31/网络安全/Web渗透/杂项/靶场记录/burpsuite靶场记录/访问控制漏洞/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Svanur</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/08/31/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/sql%E9%9D%B6%E5%9C%BA/sqli/" title="sqli">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">sqli</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/31/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/burpsuite%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E7%82%B9%E5%87%BB%E5%8A%AB%E6%8C%81/" title="点击劫持">
+                        <span class="hidden-mobile">点击劫持</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

