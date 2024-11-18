@@ -226,15 +226,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/Finecmsxss/" target="_self">
-          Finecmsxss
+        <a href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/SSRF%E9%9D%B6%E5%9C%BA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
+          SSRF靶场代码审计
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/Finecmsxss/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/13/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Web%E6%B8%97%E9%80%8F/%E6%9D%82%E9%A1%B9/%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/%E5%90%84%E7%B1%BB%E9%9D%B6%E5%9C%BA/SSRF%E9%9D%B6%E5%9C%BA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
         <div>
-          #网络安全 #靶场 存储型Xss会员中心  有两个输入框，两个输入框都可以正常输入内容 发现输入的内容会显示到input中的value中     构造payload，进行尝试  发现引号被转义，无法闭合value属性  初步判断此页面没有存储型Xss漏洞  留言页面查看留言页面  发送留言，在burp中查看拦截到的消息  发现留言数据中带着p标签 尝试修改p标签为script或者为img标签 进入
+          #网络安全 #靶场  根据危险函数定位，首先查找curl_exec()函数出现的位置   发现在以下文件中使用了curl_exec()  AopClient.php update.class.php content.class.php saetv2.ex.class.php wechat_common.class.php wechat.class.php collection.class.php
         </div>
       </a>
 
